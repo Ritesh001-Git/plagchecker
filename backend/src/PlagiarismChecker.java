@@ -62,6 +62,7 @@ public class PlagiarismChecker {
     public static String classifySimilarity(double percentage) {
         if (percentage < 30) return "Low similarity";
         else if (percentage < 70) return "Medium similarity";
+        else return "High similarity (Possible Plagiarism)";
     }
 
     public static void main(String[] args) {
