@@ -58,6 +58,11 @@ public class PlagiarismChecker {
         return (common * 100.0) / total; // percentage similarity
     }
 
+    // 🔹 Function 4: Classify similarity level
+    public static String classifySimilarity(double percentage) {
+        
+    }
+
     public static void main(String[] args) {
         String inputFile = "This is a sample text for plagiarism checking.";
         int n = 3; // n-gram size
