@@ -28,9 +28,7 @@ public class PlagiarismChecker {
     }
     // 🔹 Function 2: Generate hash values for each token using polynomial rolling
     // hash
-    publis
-
-    static Set<Long>generateHashes(List<String> tokens){
+    public static Set<Long>generateHashes(List<String> tokens){
         Set<Long> hashes = new HashSet<>();
         long base = 31;           // base for rolling hash
         long mod = 1000000009L;   // large prime for modulo
