@@ -60,7 +60,7 @@ public class PlagiarismChecker {
 
     // 🔹 Function 4: Classify similarity level
     public static String classifySimilarity(double percentage) {
-        
+        if (percentage < 30) return "Low similarity";
     }
 
     public static void main(String[] args) {
