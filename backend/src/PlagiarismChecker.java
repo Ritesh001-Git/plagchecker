@@ -43,6 +43,9 @@ public class PlagiarismChecker{
     public static double calculateSimilarity(Set<Long> set1, Set<Long> set2) {
         if (set1.isEmpty() || set2.isEmpty()) return 0.0;
 
+        Set<Long> intersection = new HashSet<>(set1);
+        intersection.retainAll(set2); // find common hashes
+
     public static void main(String[] args) {
         String inputFile = "This is a sample text for plagiarism checking.";
         int n=3; // n-gram size
