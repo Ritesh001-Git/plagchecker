@@ -25,7 +25,17 @@ public class PlagiarismChecker{
             }
         }
         
-
+        // --- 4. Generate n-grams ---
+        List<String> ngrams = new ArrayList<>();
+        for (int i = 0; i <= words.size() - n; i++) {
+            StringBuilder sb = new StringBuilder();
+            for (int j = i; j < i + n; j++) {
+                sb.append(words.get(j));
+                if (j < i + n - 1) sb.append(" ");
+            }
+            ngrams.add(sb.toString());
+        }
+        result.put("ngrams", ngrams);
         return result;
 
 
