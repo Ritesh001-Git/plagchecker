@@ -24,7 +24,9 @@ public class PlagiarismChecker{
         return ngrams;
     }
     // 🔹 Function 2: Generate hash values for each token using polynomial rolling hash
-    
+    publis static Set<Long>generateHashes(List<String> tokens){
+        
+    }
 
     public static void main(String[] args) {
         String inputFile = "This is a sample text for plagiarism checking.";
