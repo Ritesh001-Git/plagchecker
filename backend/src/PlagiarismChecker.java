@@ -22,10 +22,10 @@ public class PlagiarismChecker{
             ngrams.add(sb.toString());
         }
         return ngrams;
-
-
-
     }
+    // 🔹 Function 2: Generate hash values for each token using polynomial rolling hash
+    
+
     public static void main(String[] args) {
         String inputFile = "This is a sample text for plagiarism checking.";
         int n=3; // n-gram size
