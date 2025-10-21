@@ -66,8 +66,24 @@ public class PlagiarismChecker {
     }
 
     public static void main(String[] args) {
-        String inputFile = "This is a sample text for plagiarism checking.";
-        int n = 3; // n-gram size
-        List<String> ngrams = tokenizeText(inputFile, n);
+        String text1 = "Artificial intelligence is changing the world rapidly.";
+        String text2 = "AI is changing our world very quickly and effectively.";
+
+        int n = 3; // you can change n-gram size
+
+        // Step 1: Tokenize both texts
+        List<String> ngrams1 = tokenizeText(text1, n);
+        List<String> ngrams2 = tokenizeText(text2, n);
+
+        // Step 2: Generate hashes
+        Set<Long> hashes1 = generateHashes(ngrams1);
+        Set<Long> hashes2 = generateHashes(ngrams2);
+
+        // Step 3: Calculate similarity
+        double similarity = calculateSimilarity(hashes1, hashes2);
+
+        // Step 4: Classify and display
+        System.out.println("Similarity: " + String.format("%.2f", similarity) + "%");
+        System.out.println("Result: " + classifySimilarity(similarity));
     }
 }
