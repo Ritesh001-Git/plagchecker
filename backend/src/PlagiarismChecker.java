@@ -15,6 +15,7 @@ public class PlagiarismChecker{
         List<String> words=Arrays.asList(text.split(" "));
         result.put("words", words);
 
+        // --- 2. Tokenize into sentences ---
         String[] sentenceArray = text.split("\\.");
         List<Integer> sentenceLengths = new ArrayList<>();
         for(String sentence : sentenceArray){
