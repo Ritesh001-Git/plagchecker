@@ -65,7 +65,7 @@ public class PlagiarismChecker {
 
     public static void main(String[] args) {
         String text1 = "Artificial intelligence is changing the world rapidly.";
-        String text2 = "AI is changing our world very quickly and effectively.";
+        String text2 = "Artificial intelligence is changing the world rapidly. AI is changing our world very quickly and effectively.";
 
         int n = 3; // you can change n-gram size
 
