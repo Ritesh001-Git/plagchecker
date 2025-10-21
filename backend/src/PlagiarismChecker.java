@@ -28,6 +28,7 @@ public class PlagiarismChecker{
     // 🔹 Function 2: Generate hash values for each token using polynomial rolling hash
     publis static Set<Long>generateHashes(List<String> tokens){
         Set<Long> hashes = new HashSet<>();
+        long base = 31;           // base for rolling hash
     }
 
     public static void main(String[] args) {
