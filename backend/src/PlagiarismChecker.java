@@ -35,6 +35,9 @@ public class PlagiarismChecker{
             or (char c : token.toCharArray()) {
                 hash = (hash * base + c) % mod;
             }
+            hashes.add(hash);
+        }
+        return hashes;
 
     }
 
