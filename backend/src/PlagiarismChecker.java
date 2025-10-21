@@ -29,7 +29,8 @@ public class PlagiarismChecker{
     publis static Set<Long>generateHashes(List<String> tokens){
         Set<Long> hashes = new HashSet<>();
         long base = 31;           // base for rolling hash
-        long mod = 1000000009L;
+        long mod = 1000000009L;   // large prime for modulo
+        
     }
 
     public static void main(String[] args) {
