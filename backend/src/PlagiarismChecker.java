@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class PlagiarismChecker{
 
@@ -25,7 +27,7 @@ public class PlagiarismChecker{
     }
     // 🔹 Function 2: Generate hash values for each token using polynomial rolling hash
     publis static Set<Long>generateHashes(List<String> tokens){
-        
+        Set<Long> hashes = new HashSet<>();
     }
 
     public static void main(String[] args) {
