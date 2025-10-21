@@ -31,7 +31,11 @@ public class PlagiarismChecker{
         long base = 31;           // base for rolling hash
         long mod = 1000000009L;   // large prime for modulo
         for (String token : tokens) {
-            
+            long hash = 0;
+            or (char c : token.toCharArray()) {
+                hash = (hash * base + c) % mod;
+            }
+
     }
 
     public static void main(String[] args) {
