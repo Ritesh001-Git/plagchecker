@@ -46,6 +46,9 @@ public class PlagiarismChecker{
         Set<Long> intersection = new HashSet<>(set1);
         intersection.retainAll(set2); // find common hashes
 
+        int common = intersection.size();
+        int total = set1.size() + set2.size() - common; // union size
+
     public static void main(String[] args) {
         String inputFile = "This is a sample text for plagiarism checking.";
         int n=3; // n-gram size
