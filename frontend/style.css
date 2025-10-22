@@ -257,3 +257,14 @@ textarea:focus {
 .score-low { background: linear-gradient(135deg, #10b981 0%, #059669 100%); }
 .score-medium { background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); }
 .score-high { background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); }
+
+/* Metrics */
+.metrics {
+    margin-top: 2rem;
+}
+
+.metrics h4 {
+    margin-bottom: 1.5rem;
+    font-size: 1.2rem;
+    color: var(--text-primary);
+}
