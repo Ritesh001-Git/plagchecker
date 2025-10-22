@@ -64,4 +64,6 @@ public class PlagiarismCheckerAi {
         }
         return Math.min(1.0, matches / 5.0); // normalize
     }
+
+    // 7️⃣ Combine metrics into AI probability
 }
