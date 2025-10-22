@@ -12,7 +12,20 @@ public class MiniServer {
         System.out.println("🚀 Server running on http://localhost:8080");
 
         server.createContext("/check", (HttpExchange exchange) -> {
-            if ("POST".equals(exchange.getRequestMethod())) {
+            Headers headers = exchange.getResponseHeaders();
+            headers.set("Content-Type", "application/json");
+            headers.add("Access-Control-Allow-Origin", "*");
+            headers.add("Access-Control-Allow-Methods", "POST, OPTIONS");
+            headers.add("Access-Control-Allow-Headers", "Content-Type");
+
+            // Handle preflight (OPTIONS) requests
+            if ("OPTIONS".equalsIgnoreCase(exchange.getRequestMethod())) {
+                exchange.sendResponseHeaders(204, -1);
+                exchange.close();
+                return;
+            }
+
+            if ("POST".equalsIgnoreCase(exchange.getRequestMethod())) {
                 InputStream is = exchange.getRequestBody();
                 String body = new String(is.readAllBytes(), StandardCharsets.UTF_8);
 
@@ -28,9 +41,6 @@ public class MiniServer {
                     response = "{\"similarity\": " + sim + "}";
                 }
 
-                Headers headers = exchange.getResponseHeaders();
-                headers.set("Content-Type", "application/json");
-                headers.set("Access-Control-Allow-Origin", "*");
                 byte[] respBytes = response.getBytes(StandardCharsets.UTF_8);
                 exchange.sendResponseHeaders(200, respBytes.length);
                 exchange.getResponseBody().write(respBytes);
@@ -41,7 +51,6 @@ public class MiniServer {
         server.start();
     }
 
-    // Simple JSON value extractor (no libraries needed)
     private static String extractJsonValue(String json, String key) {
         int start = json.indexOf("\"" + key + "\":");
         if (start == -1) return "";
