@@ -43,3 +43,7 @@ header h1 {
     margin-bottom: 0.5rem;
     font-weight: 700;
 }
+.subtitle {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+}
