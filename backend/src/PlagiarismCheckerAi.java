@@ -34,4 +34,7 @@ public class PlagiarismCheckerAi {
             String gram = sb.toString().trim();
             map.put(gram, map.getOrDefault(gram, 0) + 1);
         }
+        int repeated = 0;
+        for (int count : map.values()) {
+            if (count > 1) repeated++;
 }
