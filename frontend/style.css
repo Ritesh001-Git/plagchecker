@@ -280,3 +280,17 @@ textarea:focus {
     border-radius: 8px;
     border: 1px solid var(--border-color);
 }
+.metric-label {
+    display: block;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.75rem;
+}
+
+.metric-bar {
+    height: 12px;
+    background: var(--border-color);
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 0.5rem;
+}
