@@ -14,4 +14,6 @@ public class PlagiarismCheckerAi {
             String[] words = s.trim().split("\\s+");
             if (words.length > 1) lengths.add(words.length);
         }
+        eturn lengths;
+    }
 }
