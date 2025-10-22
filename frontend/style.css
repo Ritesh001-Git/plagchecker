@@ -234,4 +234,5 @@ textarea:focus {
     align-items: center;
     justify-content: center;
     border: 5px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
 }
