@@ -21,4 +21,5 @@ public class PlagiarismCheckerAi {
     public static double lexicalDiversity(List<String> words) {
         Set<String> unique = new HashSet<>(words);
         return (double) unique.size() / words.size();
+    }
 }
