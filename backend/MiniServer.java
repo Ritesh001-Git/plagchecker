@@ -1,11 +1,12 @@
 import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpServer;
-import java.io.*;
+import java.awt.Desktop;
+import java.io.*; // Add this import for Files class
 import java.net.*;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.util.regex.*;
-import java.awt.Desktop;
 
 public class MiniServer {
 
