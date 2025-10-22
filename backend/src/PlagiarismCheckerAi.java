@@ -53,4 +53,6 @@ public class PlagiarismCheckerAi {
         // More uniform (smaller stdDev) means more AI-like
         return 1.0 / (1.0 + stdDev); // normalized
     }
+
+    // 6️⃣ Count AI keywords
 }
