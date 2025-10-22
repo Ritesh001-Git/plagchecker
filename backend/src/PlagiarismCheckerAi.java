@@ -83,6 +83,7 @@ public class PlagiarismCheckerAi {
     // 8️⃣ Classify AI-ness
     public static String classify(double score) {
         if (score < 30) return "Likely Human-written";
+        else if (score < 70) return "Possibly Mixed (Human + AI)";
 
 
 }
