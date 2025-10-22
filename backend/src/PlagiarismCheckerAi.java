@@ -46,4 +46,8 @@ public class PlagiarismCheckerAi {
      public static double sentenceUniformity(List<Integer> lengths) {
         if (lengths.size() < 2) return 0;
         double mean = lengths.stream().mapToInt(i -> i).average().orElse(0);
+        double variance = 0;
+        for (int len : lengths) variance += Math.pow(len - mean, 2);
+        variance /= lengths.size();
+        double stdDev = Math.sqrt(variance);
 }
