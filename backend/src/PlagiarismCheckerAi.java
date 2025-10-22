@@ -66,4 +66,8 @@ public class PlagiarismCheckerAi {
     }
 
     // 7️⃣ Combine metrics into AI probability
+    public static double calculateAIScore(String text) {
+        List<String> words = getWords(text);
+        List<Integer> sentenceLengths = getSentenceLengths(text);
+
 }
