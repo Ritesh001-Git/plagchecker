@@ -42,4 +42,6 @@ public class PlagiarismCheckerAi {
         return (double) repeated / map.size();
     }
 
+     // 5️⃣ Sentence uniformity (standard deviation of lengths)
+
 }
