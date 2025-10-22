@@ -367,4 +367,27 @@ footer {
     .section {
         padding: 1.5rem;
     }
+    
+    @media (max-width: 480px) {
+        header h1 {
+            font-size: 1.5rem;
+        }
+    
+        .subtitle {
+            font-size: 1rem;
+        }
+    
+        .score-circle {
+            width: 120px;
+            height: 120px;
+        }
+    
+        .score-value {
+            font-size: 2rem;
+        }
+    
+        .classification {
+            font-size: 1.2rem;
+        }
+    }
 }
