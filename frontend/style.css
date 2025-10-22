@@ -294,3 +294,17 @@ textarea:focus {
     overflow: hidden;
     margin-bottom: 0.5rem;
 }
+.metric-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    border-radius: 6px;
+    transition: width 0.6s ease;
+    width: 0%;
+}
+
+.metric-value {
+    display: block;
+    text-align: right;
+    font-weight: 600;
+    color: var(--primary-color);
+}
