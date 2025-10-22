@@ -80,4 +80,9 @@ public class PlagiarismCheckerAi {
         return aiScore * 100;
     }
 
+    // 8️⃣ Classify AI-ness
+    public static String classify(double score) {
+        if (score < 30) return "Likely Human-written";
+
+
 }
