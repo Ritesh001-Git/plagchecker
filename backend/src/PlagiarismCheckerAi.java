@@ -55,4 +55,8 @@ public class PlagiarismCheckerAi {
     }
 
     // 6️⃣ Count AI keywords
+    public static double keywordScore(String text) {
+        String[] aiWords = {"in conclusion", "overall", "in summary", "therefore", "it is important to note"};
+        text = text.toLowerCase();
+        int matches = 0;
 }
