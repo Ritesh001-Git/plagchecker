@@ -24,5 +24,6 @@ public class PlagiarismCheckerAi {
     }
 
     // 4️⃣ Count repeated n-grams (Repetition Score)
-    
+    public static double repetitionScore(List<String> words, int n) {
+        Map<String, Integer> map = new HashMap<>();
 }
