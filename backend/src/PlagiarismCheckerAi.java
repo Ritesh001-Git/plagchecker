@@ -5,4 +5,6 @@ public class PlagiarismCheckerAi {
         text = text.toLowerCase().replaceAll("[^a-z0-9\\s]", " ").replaceAll("\\s+", " ").trim();
         return Arrays.asList(text.split(" "));
     }
+
+    // 2️⃣ Split into sentences and return their lengths
 }
