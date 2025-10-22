@@ -62,4 +62,6 @@ public class PlagiarismCheckerAi {
         for (String kw : aiWords) {
             if (text.contains(kw)) matches++;
         }
+        return Math.min(1.0, matches / 5.0); // normalize
+    }
 }
