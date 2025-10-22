@@ -31,4 +31,7 @@ public class PlagiarismCheckerAi {
             for (int j = i; j < i + n; j++) {
                 sb.append(words.get(j)).append(" ");
             }
+            String gram = sb.toString().trim();
+            map.put(gram, map.getOrDefault(gram, 0) + 1);
+        }
 }
