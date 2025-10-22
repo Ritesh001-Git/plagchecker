@@ -18,5 +18,5 @@ public class PlagiarismCheckerAi {
     }
 
     // 3️⃣ Calculate lexical diversity (uniqueWords / totalWords)
-
+    public static double lexicalDiversity(List<String> words) {
 }
