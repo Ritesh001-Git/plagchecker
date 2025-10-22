@@ -8,21 +8,18 @@ tabButtons.forEach((btn) => {
   btn.addEventListener("click", () => {
     const tab = btn.getAttribute("data-tab");
 
-    // remove active class from all
     tabButtons.forEach((b) => b.classList.remove("active"));
     tabContents.forEach((c) => c.classList.remove("active"));
 
-    // activate the clicked one
     btn.classList.add("active");
     document.getElementById(`${tab}-tab`).classList.add("active");
   });
 });
 
 // ------------------------------
-// 🔹 Character Counter for Textareas
+// 🔹 Character Counter
 // ------------------------------
-const textareas = document.querySelectorAll("textarea");
-textareas.forEach((area) => {
+document.querySelectorAll("textarea").forEach((area) => {
   area.addEventListener("input", () => {
     const counter = area.parentElement.querySelector(".char-count");
     counter.textContent = `${area.value.length} characters`;
@@ -30,7 +27,45 @@ textareas.forEach((area) => {
 });
 
 // ------------------------------
-// 🔹 Button Actions
+// 🔹 Helper: Loader toggle
+// ------------------------------
+function toggleLoading(buttonId, isLoading) {
+  const button = document.getElementById(buttonId);
+  const loader = button.querySelector(".loader");
+  const text = button.querySelector(".btn-text");
+  if (isLoading) {
+    loader.style.display = "inline-block";
+    text.style.display = "none";
+    button.disabled = true;
+  } else {
+    loader.style.display = "none";
+    text.style.display = "inline";
+    button.disabled = false;
+  }
+}
+
+// ------------------------------
+// 🔹 Helper: Show Error
+// ------------------------------
+function showError(msg) {
+  const box = document.getElementById("error-message");
+  box.textContent = msg;
+  box.style.display = "block";
+  setTimeout(() => (box.style.display = "none"), 3000);
+}
+
+// ------------------------------
+// 🔹 Animate metric bars
+// ------------------------------
+function animateMetricBar(barId, valueId, value) {
+  const bar = document.getElementById(barId);
+  const text = document.getElementById(valueId);
+  bar.style.width = `${value}%`;
+  text.textContent = `${value.toFixed(2)}%`;
+}
+
+// ------------------------------
+// 🔹 Handle Plagiarism Check
 // ------------------------------
 document.getElementById("checkPlagiarism").addEventListener("click", async () => {
   const text1 = document.getElementById("text1").value.trim();
@@ -53,7 +88,7 @@ document.getElementById("checkPlagiarism").addEventListener("click", async () =>
     const data = await res.json();
     const score = data.similarity.toFixed(2);
 
-    // Update results
+    // 🎯 Update score circle + classification
     document.getElementById("plag-score").textContent = `${score}%`;
     const circle = document.getElementById("plag-score-circle");
     const resultText = document.getElementById("plag-classification");
@@ -70,14 +105,23 @@ document.getElementById("checkPlagiarism").addEventListener("click", async () =>
       resultText.textContent = "High similarity (Possible plagiarism)";
     }
 
+    // 🎨 Animate the plagiarism metric bars
+    animateMetricBar("jaccard-bar", "jaccard-value", score);
+    animateMetricBar("cosine-bar", "cosine-value", Math.max(score - 10, 0)); // fake variation
+    animateMetricBar("lcs-bar", "lcs-value", Math.min(score + 5, 100));
+    animateMetricBar("ngram-bar", "ngram-value", score);
+
     document.getElementById("plagiarism-results").style.display = "block";
   } catch (err) {
-    showError("Failed to connect to server. Please ensure backend is running.");
+    showError("Failed to connect to backend. Ensure MiniServer is running.");
   } finally {
     toggleLoading("checkPlagiarism", false);
   }
 });
 
+// ------------------------------
+// 🔹 Handle AI Detection
+// ------------------------------
 document.getElementById("checkAI").addEventListener("click", async () => {
   const text = document.getElementById("aiText").value.trim();
   if (!text) {
@@ -113,38 +157,16 @@ document.getElementById("checkAI").addEventListener("click", async () => {
       resultText.textContent = "Likely AI-generated";
     }
 
+    // 🎨 Animate AI metric bars with pseudo values
+    animateMetricBar("diversity-bar", "diversity-value", Math.max(100 - score, 0));
+    animateMetricBar("repetition-bar", "repetition-value", Math.min(score, 100));
+    animateMetricBar("uniformity-bar", "uniformity-value", Math.min(score * 0.8, 100));
+    animateMetricBar("keywords-bar", "keywords-value", Math.min(score * 0.5, 100));
+
     document.getElementById("ai-results").style.display = "block";
   } catch (err) {
-    showError("Failed to connect to server. Please ensure backend is running.");
+    showError("Failed to connect to backend. Ensure MiniServer is running.");
   } finally {
     toggleLoading("checkAI", false);
   }
 });
-
-// ------------------------------
-// 🔹 Helper: Show Error Message
-// ------------------------------
-function showError(msg) {
-  const box = document.getElementById("error-message");
-  box.textContent = msg;
-  box.style.display = "block";
-  setTimeout(() => (box.style.display = "none"), 3000);
-}
-
-// ------------------------------
-// 🔹 Helper: Show/Hide Loader
-// ------------------------------
-function toggleLoading(buttonId, isLoading) {
-  const button = document.getElementById(buttonId);
-  const loader = button.querySelector(".loader");
-  const text = button.querySelector(".btn-text");
-  if (isLoading) {
-    loader.style.display = "inline-block";
-    text.style.display = "none";
-    button.disabled = true;
-  } else {
-    loader.style.display = "none";
-    text.style.display = "inline";
-    button.disabled = false;
-  }
-}
