@@ -308,3 +308,19 @@ textarea:focus {
     font-weight: 600;
     color: var(--primary-color);
 }
+/* Error Message */
+.error {
+    background-color: #fee2e2;
+    border: 1px solid #fecaca;
+    color: #991b1b;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-top: 1rem;
+    animation: shake 0.4s ease;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-10px); }
+    75% { transform: translateX(10px); }
+}
