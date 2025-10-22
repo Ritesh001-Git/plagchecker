@@ -70,4 +70,9 @@ public class PlagiarismCheckerAi {
         List<String> words = getWords(text);
         List<Integer> sentenceLengths = getSentenceLengths(text);
 
+        double diversity = lexicalDiversity(words);
+        double repetition = repetitionScore(words, 3);
+        double uniformity = sentenceUniformity(sentenceLengths);
+        double keywords = keywordScore(text);
+
 }
