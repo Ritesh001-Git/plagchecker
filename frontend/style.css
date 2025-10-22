@@ -110,3 +110,9 @@ header h1 {
     color: var(--text-primary);
     font-size: 1.5rem;
 }
+
+/* Input Groups */
+.input-group {
+    margin-bottom: 1.5rem;
+    position: relative;
+}
