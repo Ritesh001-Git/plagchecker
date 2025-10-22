@@ -1,29 +1,38 @@
-import com.sun.net.httpserver.Headers;
-import com.sun.net.httpserver.HttpExchange;
-import com.sun.net.httpserver.HttpServer;
+import com.sun.net.httpserver.*;
 import java.awt.Desktop;
-import java.io.*; // Add this import for Files class
+import java.io.*;
 import java.net.*;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.util.regex.*;
+import java.nio.file.*;
+import java.util.regex.Matcher; // Add this line
+import java.util.regex.Pattern; // Add this line
 
 public class MiniServer {
+
+    // Folder where your HTML, CSS, JS are located
+    private static final String FRONTEND_DIR = "../frontend"; // adjust if running from back-end folder
 
     public static void main(String[] args) throws Exception {
         HttpServer server = HttpServer.create(new InetSocketAddress(8080), 0);
         System.out.println("🚀 Server running on http://localhost:8080");
 
-        // Serve static HTML files
+        // Serve static files from front-end folder
         server.createContext("/", (HttpExchange exchange) -> {
             String path = exchange.getRequestURI().getPath();
-            if (path.equals("/")) path = "/index.html"; // default HTML
-            File file = new File("." + path); // assuming HTML file is in project root
+
+            // Default to index.html
+            if (path.equals("/")) path = "/index.html";
+
+            File file = new File(FRONTEND_DIR + path).getCanonicalFile();
+
+            // Security check: don't allow accessing files outside FRONTEND_DIR
+            if (!file.getPath().startsWith(new File(FRONTEND_DIR).getCanonicalPath())) {
+                exchange.sendResponseHeaders(403, -1); // Forbidden
+                return;
+            }
 
             if (file.exists() && !file.isDirectory()) {
                 byte[] bytes = Files.readAllBytes(file.toPath());
-                Headers headers = exchange.getResponseHeaders();
-                headers.set("Content-Type", getContentType(file.getName()));
+                exchange.getResponseHeaders().set("Content-Type", getContentType(file.getName()));
                 exchange.sendResponseHeaders(200, bytes.length);
                 exchange.getResponseBody().write(bytes);
             } else {
@@ -34,6 +43,7 @@ public class MiniServer {
             exchange.getResponseBody().close();
         });
 
+        // Your existing /check API context
         server.createContext("/check", (HttpExchange exchange) -> {
             Headers headers = exchange.getResponseHeaders();
             headers.set("Content-Type", "application/json");
@@ -49,7 +59,7 @@ public class MiniServer {
 
             if ("POST".equalsIgnoreCase(exchange.getRequestMethod())) {
                 InputStream is = exchange.getRequestBody();
-                String body = new String(is.readAllBytes(), StandardCharsets.UTF_8);
+                String body = new String(is.readAllBytes(), "UTF-8");
 
                 String response;
                 try {
@@ -67,7 +77,7 @@ public class MiniServer {
                     response = "{\"error\":\"Invalid input format or server issue.\"}";
                 }
 
-                byte[] respBytes = response.getBytes(StandardCharsets.UTF_8);
+                byte[] respBytes = response.getBytes("UTF-8");
                 exchange.sendResponseHeaders(200, respBytes.length);
                 exchange.getResponseBody().write(respBytes);
                 exchange.getResponseBody().close();
@@ -76,7 +86,7 @@ public class MiniServer {
 
         server.start();
 
-        // Open default browser automatically
+        // Open the browser automatically
         if (Desktop.isDesktopSupported()) {
             Desktop.getDesktop().browse(new URI("http://localhost:8080/index.html"));
         }
