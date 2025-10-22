@@ -211,3 +211,16 @@ textarea:focus {
     margin-bottom: 1.5rem;
     font-size: 1.5rem;
 }
+
+
+/* Score Card */
+.score-card {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    padding: 2rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 12px;
+    color: white;
+    margin-bottom: 2rem;
+}
