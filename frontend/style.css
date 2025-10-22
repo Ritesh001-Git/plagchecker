@@ -170,3 +170,12 @@ textarea:focus {
     transform: translateY(-2px);
     box-shadow: var(--shadow-lg);
 }
+.btn-primary:active {
+    transform: translateY(0);
+}
+
+.btn-primary:disabled {
+    background-color: var(--text-secondary);
+    cursor: not-allowed;
+    transform: none;
+}
