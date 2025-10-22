@@ -28,4 +28,7 @@ public class PlagiarismCheckerAi {
         Map<String, Integer> map = new HashMap<>();
         for (int i = 0; i <= words.size() - n; i++) {
             StringBuilder sb = new StringBuilder();
+            for (int j = i; j < i + n; j++) {
+                sb.append(words.get(j)).append(" ");
+            }
 }
