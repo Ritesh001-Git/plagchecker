@@ -87,4 +87,16 @@ public class PlagiarismCheckerAi {
         else return "Likely AI-generated";
     }
 
+    public static void main(String[] args) {
+        String paragraph = """
+        Artificial intelligence is revolutionizing industries. 
+        It is important to note that AI systems can perform tasks faster and more accurately.
+        Overall, AI is changing how humans work and interact with technology.
+        """;
+
+        double score = calculateAIScore(paragraph);
+        System.out.println("AI-likelihood: " + String.format("%.2f", score) + "%");
+        System.out.println("Classification: " + classify(score));
+    }
+
 }
