@@ -50,4 +50,7 @@ public class PlagiarismCheckerAi {
         for (int len : lengths) variance += Math.pow(len - mean, 2);
         variance /= lengths.size();
         double stdDev = Math.sqrt(variance);
+        // More uniform (smaller stdDev) means more AI-like
+        return 1.0 / (1.0 + stdDev); // normalized
+    }
 }
