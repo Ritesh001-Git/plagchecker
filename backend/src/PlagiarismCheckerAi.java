@@ -37,4 +37,9 @@ public class PlagiarismCheckerAi {
         int repeated = 0;
         for (int count : map.values()) {
             if (count > 1) repeated++;
+        }
+
+        return (double) repeated / map.size();
+    }
+
 }
