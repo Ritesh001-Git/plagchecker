@@ -105,3 +105,8 @@ header h1 {
     box-shadow: var(--shadow);
     margin-bottom: 2rem;
 }
+.section h2 {
+    margin-bottom: 1.5rem;
+    color: var(--text-primary);
+    font-size: 1.5rem;
+}
