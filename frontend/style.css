@@ -324,3 +324,13 @@ textarea:focus {
     25% { transform: translateX(-10px); }
     75% { transform: translateX(10px); }
 }
+
+/* Footer */
+footer {
+    background: var(--card-bg);
+    padding: 2rem;
+    text-align: center;
+    color: var(--text-secondary);
+    border-top: 1px solid var(--border-color);
+    margin-top: 3rem;
+}
