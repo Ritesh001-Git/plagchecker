@@ -132,3 +132,15 @@ textarea {
     resize: vertical;
     transition: border-color 0.3s ease;
 }
+textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+.char-count {
+    position: absolute;
+    bottom: -1.5rem;
+    right: 0;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
