@@ -193,3 +193,12 @@ textarea:focus {
 @keyframes spin {
     to { transform: rotate(360deg); }
 }
+
+/* Results */
+.results {
+    background: var(--card-bg);
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    animation: slideUp 0.4s ease;
+}
