@@ -43,5 +43,7 @@ public class PlagiarismCheckerAi {
     }
 
      // 5️⃣ Sentence uniformity (standard deviation of lengths)
-
+     public static double sentenceUniformity(List<Integer> lengths) {
+        if (lengths.size() < 2) return 0;
+        double mean = lengths.stream().mapToInt(i -> i).average().orElse(0);
 }
