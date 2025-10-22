@@ -22,4 +22,7 @@ public class PlagiarismCheckerAi {
         Set<String> unique = new HashSet<>(words);
         return (double) unique.size() / words.size();
     }
+
+    // 4️⃣ Count repeated n-grams (Repetition Score)
+    
 }
