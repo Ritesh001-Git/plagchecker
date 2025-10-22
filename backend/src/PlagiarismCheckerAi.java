@@ -7,4 +7,5 @@ public class PlagiarismCheckerAi {
     }
 
     // 2️⃣ Split into sentences and return their lengths
+    public static List<Integer> getSentenceLengths(String text) {
 }
