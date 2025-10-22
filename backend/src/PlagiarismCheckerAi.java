@@ -75,4 +75,9 @@ public class PlagiarismCheckerAi {
         double uniformity = sentenceUniformity(sentenceLengths);
         double keywords = keywordScore(text);
 
+        // Combine metrics
+        double aiScore = (repetition + (1 - diversity) + uniformity + keywords) / 4.0;
+        return aiScore * 100;
+    }
+
 }
