@@ -47,3 +47,11 @@ header h1 {
     color: var(--text-secondary);
     font-size: 1.1rem;
 }
+
+/* Tabs */
+.tabs {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    border-bottom: 2px solid var(--border-color);
+}
