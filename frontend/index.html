@@ -1,89 +1,106 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Plagiarism & AI Content Checker</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <div class="container"></div>
-        <header>
-            <h1>🔍 Plagiarism & AI Content Checker</h1>
-            <p class="subtitle">Detect plagiarism and AI-generated content with advanced algorithms</p>
-        </header>
+    <header>
+        <h1>🔍 Plagiarism & AI Content Checker</h1>
+        <p class="subtitle">Detect plagiarism and AI-generated content with advanced algorithms</p>
+    </header>
 
-        <!-- Tab Navigation -->
-        <div class="tabs">
-            <button class="tab-btn active" data-tab="plagiarism">Plagiarism Check</button>
-            <button class="tab-btn" data-tab="ai">AI Detection</button>
+    <!-- Tab Navigation -->
+    <div class="tabs">
+        <button class="tab-btn active" data-tab="plagiarism">Plagiarism Check</button>
+        <button class="tab-btn" data-tab="ai">AI Detection</button>
+    </div>
+
+    <!-- Plagiarism Check Tab -->
+    <div class="tab-content active" id="plagiarism-tab">
+        <div class="section">
+            <h2>Compare Two Texts</h2>
+            <div class="input-group">
+                <label for="text1">Text 1 (Original)</label>
+                <textarea id="text1" rows="8" placeholder="Paste the first text here..."></textarea>
+                <span class="char-count" id="count1">0 characters</span>
+            </div>
+            <div class="input-group">
+                <label for="text2">Text 2 (To Compare)</label>
+                <textarea id="text2" rows="8" placeholder="Paste the second text here..."></textarea>
+                <span class="char-count" id="count2">0 characters</span>
+            </div>
+            <button class="btn btn-primary" id="checkPlagiarism">
+                <span class="btn-text">Check Plagiarism</span>
+                <span class="loader" style="display: none;"></span>
+            </button>
         </div>
 
-        <!-- Plagiarism Check Tab -->
-        <div class="tab-content active" id="plagiarism-tab">
-            <div class="section">
-                <h2>Compare Two Texts</h2>
-                <div class="input-group">
-                    <label for="text1">Text 1 (Original)</label>
-                    <textarea id="text1" rows="8" placeholder="Paste the first text here..."></textarea>
-                    <span class="char-count" id="count1">0 characters</span>
+        <!-- Plagiarism Results -->
+        <div class="results" id="plagiarism-results" style="display: none;">
+            <h3>Analysis Results</h3>
+            <div class="score-card">
+                <div class="score-circle" id="plag-score-circle">
+                    <span class="score-value" id="plag-score">0%</span>
+                    <span class="score-label">Similarity</span>
                 </div>
-                <div class="input-group">
-                    <label for="text2">Text 2 (To Compare)</label>
-                    <textarea id="text2" rows="8" placeholder="Paste the second text here..."></textarea>
-                    <span class="char-count" id="count2">0 characters</span>
+                <div class="classification" id="plag-classification">
+                    No Plagiarism Detected
                 </div>
-                <button class="btn btn-primary" id="checkPlagiarism">
-                    <span class="btn-text">Check Plagiarism</span>
-                    <span class="loader" style="display: none;"></span>
-                </button>
             </div>
+            <div class="metrics"></div>
+            <h4>Detailed Metrics</h4>
+            <div class="metric-grid">
+                <div class="metric-item">
+                    <span class="metric-label">Jaccard Similarity</span>
+                    <div class="metric-bar">
+                        <div class="metric-fill" id="jaccard-bar"></div>
+                    </div>
+                    <span class="metric-value" id="jaccard-value">0%</span>
+                </div>
+                <div class="metric-item">
+                    <span class="metric-label">Cosine Similarity</span>
+                    <div class="metric-bar">
+                        <div class="metric-fill" id="cosine-bar"></div>
+                    </div>
+                    <span class="metric-value" id="cosine-value">0%</span>
+                </div>
+                <div class="metric-item">
+                    <span class="metric-label">LCS Similarity</span>
+                    <div class="metric-bar">
+                        <div class="metric-fill" id="lcs-bar"></div>
+                    </div>
+                    <span class="metric-value" id="lcs-value">0%</span>
+                </div>
+                <div class="metric-item">
+                    <span class="metric-label">N-gram Overlap</span>
+                    <div class="metric-bar">
+                        <div class="metric-fill" id="ngram-bar"></div>
+                    </div>
+                    <span class="metric-value" id="ngram-value">0%</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
 
-             <!-- Plagiarism Results -->
-             <div class="results" id="plagiarism-results" style="display: none;">
-                <h3>Analysis Results</h3>
-                <div class="score-card">
-                    <div class="score-circle" id="plag-score-circle">
-                        <span class="score-value" id="plag-score">0%</span>
-                        <span class="score-label">Similarity</span>
-                    </div>
-                    <div class="classification" id="plag-classification">
-                        No Plagiarism Detected
-                    </div>
-                </div>
-                <div class="metrics"></div>
-                    <h4>Detailed Metrics</h4>
-                    <div class="metric-grid">
-                        <div class="metric-item">
-                            <span class="metric-label">Jaccard Similarity</span>
-                            <div class="metric-bar">
-                                <div class="metric-fill" id="jaccard-bar"></div>
-                            </div>
-                            <span class="metric-value" id="jaccard-value">0%</span>
-                        </div>
-                        <div class="metric-item">
-                            <span class="metric-label">Cosine Similarity</span>
-                            <div class="metric-bar">
-                                <div class="metric-fill" id="cosine-bar"></div>
-                            </div>
-                            <span class="metric-value" id="cosine-value">0%</span>
-                        </div>
-                        <div class="metric-item">
-                            <span class="metric-label">LCS Similarity</span>
-                            <div class="metric-bar">
-                                <div class="metric-fill" id="lcs-bar"></div>
-                            </div>
-                            <span class="metric-value" id="lcs-value">0%</span>
-                        </div>
-                        <div class="metric-item">
-                            <span class="metric-label">N-gram Overlap</span>
-                            <div class="metric-bar">
-                                <div class="metric-fill" id="ngram-bar"></div>
-                            </div>
-                            <span class="metric-value" id="ngram-value">0%</span>
-                        </div>
-                    </div>
-                </div>
+    <!-- AI Detection Tab -->
+    <div class="tab-content" id="ai-tab">
+        <div class="section">
+            <h2>Detect AI-Generated Content</h2>
+            <div class="input-group">
+                <label for="aiText">Text to Analyze</label>
+                <textarea id="aiText" rows="12" placeholder="Paste the text you want to check for AI-generated content..."></textarea>
+                <span class="char-count" id="count-ai">0 characters</span>
             </div>
+            <button class="btn btn-primary" id="checkAI">
+                <span class="btn-text">Detect AI Content</span>
+                <span class="loader" style="display: none;"></span>
+            </button>
         </div>
 </body>
