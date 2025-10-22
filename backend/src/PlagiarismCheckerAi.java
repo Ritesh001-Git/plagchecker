@@ -19,4 +19,6 @@ public class PlagiarismCheckerAi {
 
     // 3️⃣ Calculate lexical diversity (uniqueWords / totalWords)
     public static double lexicalDiversity(List<String> words) {
+        Set<String> unique = new HashSet<>(words);
+        return (double) unique.size() / words.size();
 }
