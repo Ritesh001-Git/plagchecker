@@ -158,3 +158,15 @@ textarea:focus {
     align-items: center;
     gap: 0.5rem;
 }
+.btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+    width: 100%;
+    justify-content: center;
+}
+
+.btn-primary:hover {
+    background-color: var(--secondary-color);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
