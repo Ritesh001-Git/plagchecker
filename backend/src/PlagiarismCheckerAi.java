@@ -59,4 +59,7 @@ public class PlagiarismCheckerAi {
         String[] aiWords = {"in conclusion", "overall", "in summary", "therefore", "it is important to note"};
         text = text.toLowerCase();
         int matches = 0;
+        for (String kw : aiWords) {
+            if (text.contains(kw)) matches++;
+        }
 }
