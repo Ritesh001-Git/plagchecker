@@ -8,16 +8,18 @@ tabButtons.forEach((btn) => {
   btn.addEventListener("click", () => {
     const tab = btn.getAttribute("data-tab");
 
+    // remove active class from all
     tabButtons.forEach((b) => b.classList.remove("active"));
     tabContents.forEach((c) => c.classList.remove("active"));
 
+    // activate clicked
     btn.classList.add("active");
     document.getElementById(`${tab}-tab`).classList.add("active");
   });
 });
 
 // ------------------------------
-// 🔹 Character Counter
+// 🔹 Character Counter for Textareas
 // ------------------------------
 document.querySelectorAll("textarea").forEach((area) => {
   area.addEventListener("input", () => {
@@ -27,7 +29,7 @@ document.querySelectorAll("textarea").forEach((area) => {
 });
 
 // ------------------------------
-// 🔹 Helper: Loader toggle
+// 🔹 Helper: Show/Hide Loader
 // ------------------------------
 function toggleLoading(buttonId, isLoading) {
   const button = document.getElementById(buttonId);
@@ -45,7 +47,7 @@ function toggleLoading(buttonId, isLoading) {
 }
 
 // ------------------------------
-// 🔹 Helper: Show Error
+// 🔹 Helper: Show Error Message
 // ------------------------------
 function showError(msg) {
   const box = document.getElementById("error-message");
@@ -88,7 +90,7 @@ document.getElementById("checkPlagiarism").addEventListener("click", async () =>
     const data = await res.json();
     const score = data.similarity.toFixed(2);
 
-    // 🎯 Update score circle + classification
+    // Update score circle + classification
     document.getElementById("plag-score").textContent = `${score}%`;
     const circle = document.getElementById("plag-score-circle");
     const resultText = document.getElementById("plag-classification");
@@ -105,9 +107,9 @@ document.getElementById("checkPlagiarism").addEventListener("click", async () =>
       resultText.textContent = "High similarity (Possible plagiarism)";
     }
 
-    // 🎨 Animate the plagiarism metric bars
+    // Animate plagiarism metric bars
     animateMetricBar("jaccard-bar", "jaccard-value", score);
-    animateMetricBar("cosine-bar", "cosine-value", Math.max(score - 10, 0)); // fake variation
+    animateMetricBar("cosine-bar", "cosine-value", Math.max(score - 10, 0)); // pseudo variation
     animateMetricBar("lcs-bar", "lcs-value", Math.min(score + 5, 100));
     animateMetricBar("ngram-bar", "ngram-value", score);
 
@@ -157,7 +159,7 @@ document.getElementById("checkAI").addEventListener("click", async () => {
       resultText.textContent = "Likely AI-generated";
     }
 
-    // 🎨 Animate AI metric bars with pseudo values
+    // Animate AI metric bars
     animateMetricBar("diversity-bar", "diversity-value", Math.max(100 - score, 0));
     animateMetricBar("repetition-bar", "repetition-value", Math.min(score, 100));
     animateMetricBar("uniformity-bar", "uniformity-value", Math.min(score * 0.8, 100));
