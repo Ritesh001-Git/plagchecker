@@ -16,4 +16,7 @@ public class PlagiarismCheckerAi {
         }
         return lengths;
     }
+
+    // 3️⃣ Calculate lexical diversity (uniqueWords / totalWords)
+
 }
