@@ -58,6 +58,29 @@ public class PlagiarismChecker {
         return (common * 100.0) / total;
     }
 
+    // ✅ Step 4: Cosine Similarity based on term frequency
+    public static double cosineSimilarity(String text1, String text2) {
+        Map<String, Integer> freq1 = getFrequencyMap(text1);
+        Map<String, Integer> freq2 = getFrequencyMap(text2);
+
+        Set<String> allWords = new HashSet<>(freq1.keySet());
+        allWords.addAll(freq2.keySet());
+
+        double dot = 0, mag1 = 0, mag2 = 0;
+        for (String w : allWords) {
+            int x = freq1.getOrDefault(w, 0);
+            int y = freq2.getOrDefault(w, 0);
+            dot += x * y;
+            mag1 += x * x;
+            mag2 += y * y;
+        }
+
+        if (mag1 == 0 || mag2 == 0) return 0.0;
+        return (dot / (Math.sqrt(mag1) * Math.sqrt(mag2))) * 100.0;
+    }
+
+    
+
     // Step 3: Compare two texts
     public static double compareTexts(String text1, String text2) {
         int n = 3;
