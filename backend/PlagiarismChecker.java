@@ -109,6 +109,26 @@ public class PlagiarismChecker {
         return (lcsLen * 200.0) / (m + n); // normalized 0–100
     }
 
+    // ✅ Step 6: Combined similarity result
+    public static Map<String, Double> getDetailedSimilarity(String text1, String text2) {
+        double jaccard = ngramSimilarity(text1, text2, 1);
+        double bigram = ngramSimilarity(text1, text2, 2);
+        double trigram = ngramSimilarity(text1, text2, 3);
+        double cosine = cosineSimilarity(text1, text2);
+        double lcs = lcsSimilarity(text1, text2);
+
+        double overall = (jaccard + bigram + trigram + cosine + lcs) / 5.0;
+
+        Map<String, Double> result = new LinkedHashMap<>();
+        result.put("overall", overall);
+        result.put("jaccard", jaccard);
+        result.put("cosine", cosine);
+        result.put("lcs", lcs);
+        result.put("ngram", (bigram + trigram) / 2.0);
+
+        return result;
+    }
+
 
     // Step 3: Compare two texts
     public static double compareTexts(String text1, String text2) {
