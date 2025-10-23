@@ -88,6 +88,27 @@ public class PlagiarismChecker {
         return freq;
     }
 
+    // ✅ Step 5: LCS (Longest Common Subsequence) similarity
+    public static double lcsSimilarity(String a, String b) {
+        a = a.toLowerCase();
+        b = b.toLowerCase();
+        int m = a.length(), n = b.length();
+        if (m == 0 || n == 0) return 0.0;
+
+        int[][] dp = new int[m + 1][n + 1];
+        for (int i = 1; i <= m; i++) {
+            for (int j = 1; j <= n; j++) {
+                if (a.charAt(i - 1) == b.charAt(j - 1))
+                    dp[i][j] = dp[i - 1][j - 1] + 1;
+                else
+                    dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]);
+            }
+        }
+
+        double lcsLen = dp[m][n];
+        return (lcsLen * 200.0) / (m + n); // normalized 0–100
+    }
+
 
     // Step 3: Compare two texts
     public static double compareTexts(String text1, String text2) {
