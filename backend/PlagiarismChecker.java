@@ -39,6 +39,25 @@ public class PlagiarismChecker {
         return hashes;
     }
 
+     // ✅ Step 3: Compare using n-gram Jaccard similarity (1–3 grams)
+     public static double ngramSimilarity(String text1, String text2, int n) {
+        List<String> ngrams1 = tokenizeText(text1, n);
+        List<String> ngrams2 = tokenizeText(text2, n);
+
+        Set<Long> hashes1 = generateHashes(ngrams1);
+        Set<Long> hashes2 = generateHashes(ngrams2);
+
+        if (hashes1.isEmpty() || hashes2.isEmpty()) return 0.0;
+
+        Set<Long> intersection = new HashSet<>(hashes1);
+        intersection.retainAll(hashes2);
+
+        int common = intersection.size();
+        int total = hashes1.size() + hashes2.size() - common;
+
+        return (common * 100.0) / total;
+    }
+
     // Step 3: Compare two texts
     public static double compareTexts(String text1, String text2) {
         int n = 3;
