@@ -25,10 +25,10 @@ public class PlagiarismChecker {
         return ngrams;
     }
 
-    // Step 2: Generate hashes
+    // ✅ Step 2: Generate unique hashes for n-grams
     public static Set<Long> generateHashes(List<String> tokens) {
         Set<Long> hashes = new HashSet<>();
-        long base = 31, mod = 1000000009L;
+        long base = 31, mod = 1_000_000_009L;
         for (String token : tokens) {
             long hash = 0;
             for (char c : token.toCharArray()) {
