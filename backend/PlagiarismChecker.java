@@ -2,11 +2,17 @@ import java.util.*;
 
 public class PlagiarismChecker {
 
-    // Step 1: Tokenize text
+    // ✅ Step 1: Tokenize text into n-grams
     public static List<String> tokenizeText(String text, int n) {
-        text = text.toLowerCase().replaceAll("[^a-z0-9\\s]", " ").replaceAll("\\s+", " ").trim();
-        List<String> words = Arrays.asList(text.split(" "));
+        // Normalize text (lowercase + remove punctuation)
+        text = text.toLowerCase()
+                   .replaceAll("[^a-z0-9]+", " ")
+                   .trim();
+
+        List<String> words = Arrays.asList(text.split("\\s+"));
         List<String> ngrams = new ArrayList<>();
+
+        if (words.size() < n) return ngrams;
 
         for (int i = 0; i <= words.size() - n; i++) {
             StringBuilder sb = new StringBuilder();
