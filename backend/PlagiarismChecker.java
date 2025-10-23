@@ -129,7 +129,6 @@ public class PlagiarismChecker {
         return result;
     }
 
-
     // ✅ Step 7: Simple compareTexts() for MiniServer
     public static double compareTexts(String text1, String text2) {
         return getDetailedSimilarity(text1, text2).get("overall");
