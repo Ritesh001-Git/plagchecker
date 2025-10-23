@@ -79,7 +79,15 @@ public class PlagiarismChecker {
         return (dot / (Math.sqrt(mag1) * Math.sqrt(mag2))) * 100.0;
     }
 
-    
+    private static Map<String, Integer> getFrequencyMap(String text) {
+        text = text.toLowerCase().replaceAll("[^a-z0-9]+", " ");
+        Map<String, Integer> freq = new HashMap<>();
+        for (String w : text.split("\\s+")) {
+            if (!w.isEmpty()) freq.put(w, freq.getOrDefault(w, 0) + 1);
+        }
+        return freq;
+    }
+
 
     // Step 3: Compare two texts
     public static double compareTexts(String text1, String text2) {
