@@ -3,30 +3,27 @@ import java.awt.Desktop;
 import java.io.*;
 import java.net.*;
 import java.nio.file.*;
-import java.util.regex.Matcher; // Add this line
-import java.util.regex.Pattern; // Add this line
+import java.util.Map;
+
+import org.json.JSONObject;
 
 public class MiniServer {
 
-    // Folder where your HTML, CSS, JS are located
-    private static final String FRONTEND_DIR = "../frontend"; // adjust if running from back-end folder
+    private static final String FRONTEND_DIR = "../frontend";
 
     public static void main(String[] args) throws Exception {
         HttpServer server = HttpServer.create(new InetSocketAddress(8080), 0);
         System.out.println("🚀 Server running on http://localhost:8080");
 
-        // Serve static files from front-end folder
+        // Serve static files
         server.createContext("/", (HttpExchange exchange) -> {
             String path = exchange.getRequestURI().getPath();
-
-            // Default to index.html
             if (path.equals("/")) path = "/index.html";
 
             File file = new File(FRONTEND_DIR + path).getCanonicalFile();
 
-            // Security check: don't allow accessing files outside FRONTEND_DIR
             if (!file.getPath().startsWith(new File(FRONTEND_DIR).getCanonicalPath())) {
-                exchange.sendResponseHeaders(403, -1); // Forbidden
+                exchange.sendResponseHeaders(403, -1);
                 return;
             }
 
@@ -37,13 +34,14 @@ public class MiniServer {
                 exchange.getResponseBody().write(bytes);
             } else {
                 String notFound = "404 Not Found";
+                exchange.getResponseHeaders().set("Content-Type", "text/plain");
                 exchange.sendResponseHeaders(404, notFound.length());
                 exchange.getResponseBody().write(notFound.getBytes());
             }
             exchange.getResponseBody().close();
         });
 
-        // Your existing /check API context
+        // /check API
         server.createContext("/check", (HttpExchange exchange) -> {
             Headers headers = exchange.getResponseHeaders();
             headers.set("Content-Type", "application/json");
@@ -58,45 +56,83 @@ public class MiniServer {
             }
 
             if ("POST".equalsIgnoreCase(exchange.getRequestMethod())) {
-                InputStream is = exchange.getRequestBody();
-                String body = new String(is.readAllBytes(), "UTF-8");
-
-                String response;
-                try {
-                    if (body.contains("\"mode\":\"ai\"")) {
-                        String text = extractValue(body, "text1");
-                        double aiPercent = PlagiarismCheckerAi.calculateAIScore(text);
-                        response = "{\"ai_percent\": " + aiPercent + "}";
-                    } else {
-                        String text1 = extractValue(body, "text1");
-                        String text2 = extractValue(body, "text2");
-                        double sim = PlagiarismChecker.compareTexts(text1, text2);
-                        response = "{\"similarity\": " + sim + "}";
-                    }
-                } catch (Exception e) {
-                    response = "{\"error\":\"Invalid input format or server issue.\"}";
+                String body;
+                try (InputStream is = exchange.getRequestBody()) {
+                    body = new String(is.readAllBytes(), "UTF-8");
                 }
 
-                byte[] respBytes = response.getBytes("UTF-8");
+                String responseJson;
+                try {
+                    JSONObject req = new JSONObject(body);
+                    String mode = req.optString("mode", "plagiarism");
+
+                    if ("ai".equalsIgnoreCase(mode)) {
+                        // AI detection with detailed metrics
+                        String text = req.optString("text1", "");
+                        // JSONObject out = new JSONObject();
+                        
+                        Map<String, Double> aiMetrics = PlagiarismCheckerAi.calculateAIScoreDetailed(text);
+                        JSONObject out = new JSONObject();
+                        out.put("ai_percent", round(aiMetrics.get("ai_percent")));
+                        out.put("diversity", round(aiMetrics.get("diversity")));
+                        out.put("repetition", round(aiMetrics.get("repetition")));
+                        out.put("uniformity", round(aiMetrics.get("uniformity")));
+                        out.put("burstiness", round(aiMetrics.get("burstiness")));
+                        out.put("keywords", round(aiMetrics.get("keywords")));
+                        
+                        responseJson = out.toString();
+                        
+                        // Debug logging
+                        System.out.println("AI Detection Result: " + round(aiMetrics.get("ai_percent")) + "%");
+                        System.out.println("  Diversity: " + round(aiMetrics.get("diversity")));
+                        System.out.println("  Burstiness: " + round(aiMetrics.get("burstiness")));
+                        
+                    } else {
+                        // Plagiarism mode
+                        String text1 = req.optString("text1", "");
+                        String text2 = req.optString("text2", "");
+                        Map<String, Double> details = PlagiarismChecker.getDetailedSimilarity(text1, text2);
+
+                        JSONObject out = new JSONObject();
+                        out.put("similarity", round(details.getOrDefault("overall", 0.0)));
+                        out.put("jaccard", round(details.getOrDefault("jaccard", 0.0)));
+                        out.put("cosine", round(details.getOrDefault("cosine", 0.0)));
+                        out.put("lcs", round(details.getOrDefault("lcs", 0.0)));
+                        out.put("ngram", round(details.getOrDefault("ngram", 0.0)));
+
+                        responseJson = out.toString();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    JSONObject err = new JSONObject();
+                    err.put("error", "Invalid input: " + e.getMessage());
+                    responseJson = err.toString();
+                }
+
+                byte[] respBytes = responseJson.getBytes("UTF-8");
+                exchange.getResponseHeaders().set("Content-Type", "application/json; charset=utf-8");
                 exchange.sendResponseHeaders(200, respBytes.length);
                 exchange.getResponseBody().write(respBytes);
                 exchange.getResponseBody().close();
+            } else {
+                exchange.sendResponseHeaders(405, -1);
             }
         });
 
         server.start();
 
-        // Open the browser automatically
         if (Desktop.isDesktopSupported()) {
-            Desktop.getDesktop().browse(new URI("http://localhost:8080/index.html"));
+            try {
+                Desktop.getDesktop().browse(new URI("http://localhost:8080/index.html"));
+            } catch (Exception e) {
+                System.err.println("Failed to open browser: " + e.getMessage());
+            }
         }
     }
 
-    private static String extractValue(String json, String key) {
-        Pattern p = Pattern.compile("\"" + key + "\"\\s*:\\s*\"([^\"]*)\"", Pattern.DOTALL);
-        Matcher m = p.matcher(json);
-        if (m.find()) return m.group(1).replace("\\n", "\n");
-        return "";
+    private static double round(Double val) {
+        if (val == null) return 0.0;
+        return Math.round(val * 100.0) / 100.0;
     }
 
     private static String getContentType(String fileName) {
