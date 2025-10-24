@@ -108,5 +108,15 @@ If successful, you should see:
   "keywords": 18.0
 }
 ```
-
 ---
+
+## 🧪 Testing
+
+Use these quick test cases:
+
+| Type | Input | Expected |
+|------|--------|----------|
+| Plagiarism | Two identical paragraphs | 100% similarity |
+| Plagiarism | Two totally different texts | 0–20% similarity |
+| AI Detection | ChatGPT-generated text | >70% AI likelihood |
+| AI Detection | Human-written article | <30% AI likelihood |
