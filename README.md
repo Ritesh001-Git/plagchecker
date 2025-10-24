@@ -132,3 +132,8 @@ Use these quick test cases:
 | ⚠️ *AI percent always low* | Fine-tune `PlagiarismCheckerAi` thresholds or pattern weights. |
 
 ---
+
+## 📜 License
+MIT License — Free for personal and educational use.
+
+---
