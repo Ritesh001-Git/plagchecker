@@ -28,7 +28,26 @@ Built with **Java (HTTP Server + NLP logic)** and a **JavaScript frontend** for 
 
 ---
 
+## 🧩 Folder Structure
 
+```
+project/
+│
+├── backend/
+│   ├── MiniServer.java
+│   ├── PlagiarismChecker.java
+│   ├── PlagiarismCheckerAi.java
+│   ├── json-20250517.jar
+│
+├── frontend/
+│   ├── index.html
+│   ├── style.css
+│   └── script.js
+│
+└── README.md
+```
+
+---
 
 
 javac -cp .:json-20250517.jar *.java
