@@ -138,8 +138,15 @@ MIT License — Free for personal and educational use.
 
 ---
 
+## 🙏 Thank You
+Thank you for checking out this project!
+If you find it useful, consider ⭐ starring the repository or sharing it with others who might benefit from it.
+Your feedback and support mean a lot — they help make tools like this better every day.
+
+Happy Coding! 🚀
+
+---
+
 ## 👨‍💻 Author
 **Ritesh Kumar Swain**  
 *Built with 💻, logic, and a lot of debugging.*
-
-## 🙏 Thank You
