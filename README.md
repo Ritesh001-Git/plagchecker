@@ -60,3 +60,12 @@ project/
 cd backend
 javac -cp .:json-20250517.jar *.java
 ```
+
+### 3️⃣ Run Server
+```bash
+java -cp .:json-20250517.jar MiniServer
+```
+If successful, you should see:
+```
+🚀 Server running on http://localhost:8080
+```
