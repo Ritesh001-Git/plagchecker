@@ -137,3 +137,9 @@ Use these quick test cases:
 MIT License — Free for personal and educational use.
 
 ---
+
+## 👨‍💻 Author
+**Ritesh Kumar Swain**  
+*Built with 💻, logic, and a lot of debugging.*
+
+## 🙏 Thank You
