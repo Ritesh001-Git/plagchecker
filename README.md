@@ -80,3 +80,12 @@ If successful, you should see:
 | `mode` | string | `"plagiarism"` or `"ai"` |
 | `text1` | string | First text input (or the only text for AI check) |
 | `text2` | string | Second text (used only for plagiarism) |
+
+### 🔹 Example Request (Plagiarism)
+```json
+{
+  "mode": "plagiarism",
+  "text1": "Sample text A",
+  "text2": "Sample text B"
+}
+```
