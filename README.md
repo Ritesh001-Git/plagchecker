@@ -89,3 +89,11 @@ If successful, you should see:
   "text2": "Sample text B"
 }
 ```
+
+### 🔹 Example Request (AI Detection)
+```json
+{
+  "mode": "ai",
+  "text1": "This is a generated paragraph..."
+}
+```
