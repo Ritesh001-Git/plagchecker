@@ -7,12 +7,8 @@ const tabContents = document.querySelectorAll(".tab-content");
 tabButtons.forEach((btn) => {
   btn.addEventListener("click", () => {
     const tab = btn.getAttribute("data-tab");
-
-    // remove active class from all
     tabButtons.forEach((b) => b.classList.remove("active"));
     tabContents.forEach((c) => c.classList.remove("active"));
-
-    // activate clicked
     btn.classList.add("active");
     document.getElementById(`${tab}-tab`).classList.add("active");
   });
@@ -57,11 +53,12 @@ function showError(msg) {
 }
 
 // ------------------------------
-// 🔹 Animate metric bars
+// 🔹 Animate Metric Bar
 // ------------------------------
 function animateMetricBar(barId, valueId, value) {
   const bar = document.getElementById(barId);
   const text = document.getElementById(valueId);
+  if (!bar || !text) return;
   bar.style.width = `${value}%`;
   text.textContent = `${value.toFixed(2)}%`;
 }
@@ -87,11 +84,18 @@ document.getElementById("checkPlagiarism").addEventListener("click", async () =>
       body: JSON.stringify(body),
     });
 
+    if (!res.ok) throw new Error("Network response was not ok");
     const data = await res.json();
-    const score = data.similarity.toFixed(2);
+    if (data.error) throw new Error(data.error);
 
-    // Update score circle + classification
-    document.getElementById("plag-score").textContent = `${score}%`;
+    const score = data.similarity ?? 0;
+    const jaccard = data.jaccard ?? 0;
+    const cosine = data.cosine ?? 0;
+    const lcs = data.lcs ?? 0;
+    const ngram = data.ngram ?? 0;
+
+    // Update Plagiarism Score
+    document.getElementById("plag-score").textContent = `${score.toFixed(2)}%`;
     const circle = document.getElementById("plag-score-circle");
     const resultText = document.getElementById("plag-classification");
     circle.classList.remove("score-low", "score-medium", "score-high");
@@ -107,15 +111,16 @@ document.getElementById("checkPlagiarism").addEventListener("click", async () =>
       resultText.textContent = "High similarity (Possible plagiarism)";
     }
 
-    // Animate plagiarism metric bars
-    animateMetricBar("jaccard-bar", "jaccard-value", score);
-    animateMetricBar("cosine-bar", "cosine-value", Math.max(score - 10, 0)); // pseudo variation
-    animateMetricBar("lcs-bar", "lcs-value", Math.min(score + 5, 100));
-    animateMetricBar("ngram-bar", "ngram-value", score);
+    // Animate Metrics
+    animateMetricBar("jaccard-bar", "jaccard-value", jaccard);
+    animateMetricBar("cosine-bar", "cosine-value", cosine);
+    animateMetricBar("lcs-bar", "lcs-value", lcs);
+    animateMetricBar("ngram-bar", "ngram-value", ngram);
 
     document.getElementById("plagiarism-results").style.display = "block";
   } catch (err) {
-    showError("Failed to connect to backend. Ensure MiniServer is running.");
+    console.error(err);
+    showError("Failed to connect to backend or invalid response.");
   } finally {
     toggleLoading("checkPlagiarism", false);
   }
@@ -140,10 +145,26 @@ document.getElementById("checkAI").addEventListener("click", async () => {
       body: JSON.stringify(body),
     });
 
+    if (!res.ok) throw new Error("Network response was not ok");
     const data = await res.json();
-    const score = data.ai_percent.toFixed(2);
+    if (data.error) throw new Error(data.error);
 
-    document.getElementById("ai-score").textContent = `${score}%`;
+    // ✅ Use real backend metrics
+    const score = data.ai_percent ?? 0;
+    const diversity = data.diversity ?? 0;
+    const repetition = data.repetition ?? 0;
+    const uniformity = data.uniformity ?? 0;
+    const burstiness = data.burstiness ?? 0;
+    const keywords = data.keywords ?? 0;
+
+    console.log("Backend AI Score:", score);
+    console.log("Diversity:", diversity);
+    console.log("Uniformity:", uniformity);
+    console.log("Burstiness:", burstiness);
+    console.log("Keywords:", keywords);
+
+    // Update AI Score Circle
+    document.getElementById("ai-score").textContent = `${score.toFixed(2)}%`;
     const circle = document.getElementById("ai-score-circle");
     const resultText = document.getElementById("ai-classification");
     circle.classList.remove("score-low", "score-medium", "score-high");
@@ -159,15 +180,17 @@ document.getElementById("checkAI").addEventListener("click", async () => {
       resultText.textContent = "Likely AI-generated";
     }
 
-    // Animate AI metric bars
-    animateMetricBar("diversity-bar", "diversity-value", Math.max(100 - score, 0));
-    animateMetricBar("repetition-bar", "repetition-value", Math.min(score, 100));
-    animateMetricBar("uniformity-bar", "uniformity-value", Math.min(score * 0.8, 100));
-    animateMetricBar("keywords-bar", "keywords-value", Math.min(score * 0.5, 100));
+    // Animate AI Metrics
+    animateMetricBar("diversity-bar", "diversity-value", diversity);
+    animateMetricBar("repetition-bar", "repetition-value", repetition);
+    animateMetricBar("uniformity-bar", "uniformity-value", uniformity);
+    animateMetricBar("burstiness-bar", "burstiness-value", burstiness);
+    animateMetricBar("keywords-bar", "keywords-value", keywords);
 
     document.getElementById("ai-results").style.display = "block";
   } catch (err) {
-    showError("Failed to connect to backend. Ensure MiniServer is running.");
+    console.error(err);
+    showError("Failed to connect to backend or invalid response.");
   } finally {
     toggleLoading("checkAI", false);
   }
