@@ -56,14 +56,25 @@ project/
 - A modern browser (Chrome, Edge, Firefox, etc.)
 
 ### 2️⃣ Compile Backend
+#### For Max/Linux
 ```bash
 cd backend
 javac -cp .:json-20250517.jar *.java
 ```
+#### For Windows
+```bash
+cd backend
+javac -cp .;json-20250517.jar *.java
+```
 
 ### 3️⃣ Run Server
+#### For Mac/Linux
 ```bash
 java -cp .:json-20250517.jar MiniServer
+```
+#### For Windows
+```bash
+java -cp .;json-20250517.jar MiniServer
 ```
 If successful, you should see:
 ```
