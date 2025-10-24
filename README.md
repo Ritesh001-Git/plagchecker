@@ -146,6 +146,7 @@ Use these quick test cases:
 
 ## 📜 License
 MIT License — Free for personal and educational use.
+[MIT LICENSE](LICENCE)
 
 ---
 
