@@ -49,6 +49,11 @@ project/
 
 ---
 
+## ⚡ Installation & Setup
+
+### 1️⃣ Prerequisites
+- Java 17 or higher  
+- A modern browser (Chrome, Edge, Firefox, etc.)
 
 javac -cp .:json-20250517.jar *.java
 java -cp .:json-20250517.jar MiniServer
