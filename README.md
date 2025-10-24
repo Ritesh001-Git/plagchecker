@@ -97,3 +97,16 @@ If successful, you should see:
   "text1": "This is a generated paragraph..."
 }
 ```
+
+### 🔹 Example Response
+```json
+{
+  "ai_percent": 72.5,
+  "diversity": 63.0,
+  "repetition": 12.0,
+  "uniformity": 48.0,
+  "keywords": 18.0
+}
+```
+
+---
