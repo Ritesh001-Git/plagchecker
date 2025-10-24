@@ -120,3 +120,15 @@ Use these quick test cases:
 | Plagiarism | Two totally different texts | 0–20% similarity |
 | AI Detection | ChatGPT-generated text | >70% AI likelihood |
 | AI Detection | Human-written article | <30% AI likelihood |
+
+---
+
+## 🛠 Troubleshooting
+
+| Issue | Solution |
+|--------|-----------|
+| ❌ *“Failed to connect to backend”* | Ensure `MiniServer` is running at `http://localhost:8080`. |
+| ❌ *CORS or network error* | Use the project locally (both frontend and backend on the same machine). |
+| ⚠️ *AI percent always low* | Fine-tune `PlagiarismCheckerAi` thresholds or pattern weights. |
+
+---
