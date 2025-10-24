@@ -69,3 +69,14 @@ If successful, you should see:
 ```
 🚀 Server running on http://localhost:8080
 ```
+---
+
+## 📡 API Endpoint
+
+**POST `/check`**
+
+| Parameter | Type | Description |
+|------------|------|-------------|
+| `mode` | string | `"plagiarism"` or `"ai"` |
+| `text1` | string | First text input (or the only text for AI check) |
+| `text2` | string | Second text (used only for plagiarism) |
