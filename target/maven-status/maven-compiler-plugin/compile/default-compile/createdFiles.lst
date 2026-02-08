@@ -1,7 +1,0 @@
-com/detector/server/MiniServer.class
-com/detector/ml/ModelPredictor.class
-com/detector/server/PlagiarismChecker.class
-com/detector/model/AIDetectionResult.class
-com/detector/service/AIContentDetectorService.class
-com/detector/nlp/TextPreprocessor.class
-com/detector/nlp/FeatureExtractor.class
