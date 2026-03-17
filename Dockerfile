@@ -1,16 +1,10 @@
-FROM maven:3.9.6-eclipse-temurin-17 AS builder
+FROM maven:3.9.6-eclipse-temurin-17
 
 WORKDIR /app
 COPY . .
 
-RUN mvn clean package -DskipTests
+# Build once
+RUN mvn clean compile
 
-# Runtime image (lighter)
-FROM eclipse-temurin:17-jdk
-
-WORKDIR /app
-
-COPY --from=builder /app/target/*.jar app.jar
-COPY frontend ./frontend
-
-CMD ["java", "-jar", "app.jar"]
+# Run using compiled classes (no jar confusion)
+CMD ["mvn", "exec:java", "-Dexec.mainClass=com.detector.server.MiniServer"]
